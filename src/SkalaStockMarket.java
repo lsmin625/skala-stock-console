@@ -3,37 +3,47 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StockMarket {
-    private ArrayList<Stock> stockList = new ArrayList<>();
-    private int userGold;
-    private final String STOCK_FILE = "data/stocks.txt"; // 주식 정보를 저장할 파일
+public class SkalaStockMarket {
+    private PlayerRepository playerRepository = new PlayerRepository();
+    private StockRepository stockRepository = new StockRepository();
+    private Player player = null;
 
     public void start() {
+
+        // 주식 레파지토리에서 주식 정보를 불러옴
+        stockRepository.loadStockList();
+
+        // 플레이어 레파지토리에서 플레이어 정보를 불러옴
+        playerRepository.loadPlayerList();
+
+        // 콘솔로 입력을 받을 수 있도록 스캐너 설정
         Scanner scanner = new Scanner(System.in);
 
-        // 파일에서 주식 정보를 불러옴
-        loadStockList();
+        System.out.print("플레이어 ID를 입력하세요: ");
+        String playerId = scanner.nextLine();
+        player = playerRepository.findPlayer(playerId);
+        if (player == null) { // 새로운 플레이어
+            player = new Player(playerId);
 
-        System.out.print("플레이어 이름을 입력하세요: ");
-        String playerName = scanner.nextLine();
+            System.out.print("초기 투자금을 입력하세요 (스칼라): ");
+            int money = scanner.nextInt();
+            player.setPlayerMoney(money);
+            playerRepository.addPlayer(player);
+        }
 
-        System.out.print("초기 자본금을 입력하세요 (골드): ");
-        userGold = scanner.nextInt();
-
-        System.out.println("\n환영합니다, " + playerName + "!");
+        System.out.println("\n환영합니다, " + playerId + "!");
         boolean running = true;
 
         // 게임 루프
         while (running) {
-            System.out.println("\n=== 주식 투자 게임 ===");
-            System.out.println("1. 주식 목록 보기");
+            System.out.println("\n=== 스칼라 주식 시장 ===");
+            System.out.println("1. 보유 주식 목록");
             System.out.println("2. 주식 구매");
             System.out.println("3. 주식 판매");
             System.out.println("4. 다음 날");
-            System.out.println("5. 게임 종료");
+            System.out.println("5. 프로그램 종료");
             System.out.print("선택: ");
             int choice = scanner.nextInt();
 

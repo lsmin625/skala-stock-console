@@ -1,34 +1,59 @@
+import java.util.ArrayList;
+
 class Player {
-    private String name;
-    private int userGold;
+    private String playerId;
+    private int playerMoney;
+    private ArrayList<PlayerStock> stocks = new ArrayList<>();
 
-    public Player(String name, int userGold) {
-        this.name = name;
-        this.userGold = userGold;
+    public Player() {
     }
 
-    public String getName() {
-        return name;
+    public Player(String id) {
+        this.playerId = id;
+        this.playerMoney = 10000;
     }
 
-    public int getuserGold() {
-        return userGold;
+    public void setplayerId(String id) {
+        this.playerId = id;
     }
 
-    public void setuserGold(int userGold) {
-        this.userGold = userGold;
+    public String getplayerId() {
+        return this.playerId;
     }
 
-    public void display() {
-        System.out.println(name + ": " + userGold + "골드");
+    public int getPlayerMoney() {
+        return this.playerMoney;
     }
 
-    public String toFileString() {
-        return name + "," + userGold; // 파일에 저장할 형식
+    public void setPlayerMoney(int money) {
+        this.playerMoney = money;
     }
 
-    public static Stock fromFileString(String line) {
-        String[] parts = line.split(",");
-        return new Stock(parts[0], Integer.parseInt(parts[1]));
+    public void addStock(PlayerStock stock) {
+        boolean stockExists = false;
+
+        for (PlayerStock existingStock : stocks) {
+            if (existingStock.getStockName().equals(stock.getStockName())) {
+                existingStock.setStockPrice(stock.getStockPrice());
+                existingStock.setStockCount(existingStock.getStockCount());
+                stockExists = true;
+                break;
+            }
+        }
+
+        if (!stockExists) {
+            stocks.add(stock);
+        }
+    }
+
+    public String getStocksAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < stocks.size(); i++) {
+            if (i > 0) {
+                sb.append("|");
+            }
+            sb.append(stocks.get(i));
+        }
+        return sb.toString();
     }
 }

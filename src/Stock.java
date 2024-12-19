@@ -1,34 +1,33 @@
 class Stock {
-    private String name;
-    private int price;
+    String stockName;
+    int stockPrice;
+
+    public Stock() {
+    }
 
     public Stock(String name, int price) {
-        this.name = name;
-        this.price = price;
+        this.stockName = name;
+        this.stockPrice = price;
     }
 
-    public String getName() {
-        return name;
+    public String getStockName() {
+        return stockName;
     }
 
-    public int getPrice() {
-        return price;
+    public int getStockPrice() {
+        return stockPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setStockPrice(int price) {
+        this.stockPrice = price;
     }
 
-    public void display() {
-        System.out.println(name + ": " + price + "골드");
-    }
-
-    public String toFileString() {
-        return name + "," + price; // 파일에 저장할 형식
-    }
-
-    public static Stock fromFileString(String line) {
-        String[] parts = line.split(",");
-        return new Stock(parts[0], Integer.parseInt(parts[1]));
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(stockName);
+        sb.append(":");
+        sb.append(stockPrice);
+        sb.append(Constant.MONEY_UNIT);
+        return sb.toString();
     }
 }
