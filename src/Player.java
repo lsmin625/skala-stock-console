@@ -56,4 +56,17 @@ class Player {
         }
         return sb.toString();
     }
+
+    public String getStocksString() {
+        StringBuilder sb = new StringBuilder();
+        for (PlayerStock stock : stocks) {
+            sb.append(stock.toString());
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
+    public void setStockList(ArrayList<PlayerStock> stocks) {
+        this.stocks = stocks;
+    }
 }

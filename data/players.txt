@@ -1,0 +1,1 @@
+admin,1000,TechCorp:100:5

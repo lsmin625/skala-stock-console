@@ -36,7 +36,7 @@ class StockRepository {
     public void saveStockList() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(STOCK_FILE))) {
             for (Stock stock : stockList) {
-                writer.write(stock.getstockName() + "," + stock.getstockPrice());
+                writer.write(stock.getStockName() + "," + stock.getStockPrice());
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -53,5 +53,16 @@ class StockRepository {
             System.out.println("라인을 분석할 수 없습니다. line=" + line);
             return null;
         }
+    }
+
+    public String getStockListString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < stockList.size(); i++) {
+            sb.append(i + 1);
+            sb.append(". ");
+            sb.append(stockList.get(i).toString());
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
     }
 }

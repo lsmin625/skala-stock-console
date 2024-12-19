@@ -47,11 +47,27 @@ class PlayerRepository {
             Player player = new Player();
             player.setplayerId(fileds[0]);
             player.setPlayerMoney(Integer.parseInt(fileds[1]));
+            if (fileds[2] != null && fileds[2].indexOf(":") > 0) {
+                player.setStockList(parseFieldToStockList(fileds[2]));
+            }
             return player;
         } else {
             System.out.println("라인을 분석할 수 없습니다. line=" + line);
             return null;
         }
+    }
+
+    private ArrayList<PlayerStock> parseFieldToStockList(String field) {
+        ArrayList<PlayerStock> list = new ArrayList<>();
+
+        String stocks[] = field.split("\\|");
+        for (int i = 0; i < stocks.length; i++) {
+            String props[] = stocks[i].split(":");
+            if (props.length > 1) {
+                list.add(new PlayerStock(props[0], props[1], props[2]));
+            }
+        }
+        return list;
     }
 
     // 플레이어 검색

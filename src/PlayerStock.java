@@ -7,6 +7,12 @@ class PlayerStock extends Stock {
         this.stockCount = 0;
     }
 
+    public PlayerStock(String name, String price, String count) {
+        this.stockName = name;
+        this.stockPrice = Integer.parseInt(price);
+        this.stockCount = Integer.parseInt(count);
+    }
+
     public int getStockCount() {
         return this.stockCount;
     }
