@@ -3,7 +3,7 @@ import java.util.ArrayList;
 class Player {
     private String playerId;
     private int playerMoney;
-    private ArrayList<PlayerStock> stocks = new ArrayList<>();
+    private ArrayList<PlayerStock> playerStocks = new ArrayList<>();
 
     public Player() {
     }
@@ -29,10 +29,18 @@ class Player {
         this.playerMoney = money;
     }
 
+    public ArrayList<PlayerStock> getPlayerStocks() {
+        return this.playerStocks;
+    }
+
+    public void setPlayerStocks(ArrayList<PlayerStock> stocks) {
+        this.playerStocks = stocks;
+    }
+
     public void addStock(PlayerStock stock) {
         boolean stockExists = false;
 
-        for (PlayerStock existingStock : stocks) {
+        for (PlayerStock existingStock : playerStocks) {
             if (existingStock.getStockName().equals(stock.getStockName())) {
                 existingStock.setStockPrice(stock.getStockPrice());
                 existingStock.setStockQuantity(existingStock.getStockQuantity());
@@ -42,31 +50,46 @@ class Player {
         }
 
         if (!stockExists) {
-            stocks.add(stock);
+            playerStocks.add(stock);
         }
     }
 
-    public String getStocksAsString() {
+    public void updatePlayerStock(PlayerStock stock) {
+        for (PlayerStock existingStock : playerStocks) {
+            if (existingStock.getStockName().equals(stock.getStockName())) {
+                existingStock.setStockPrice(stock.getStockPrice());
+                existingStock.setStockQuantity(existingStock.getStockQuantity());
+                break;
+            }
+        }
+    }
+
+    public PlayerStock finStock(int index) {
+        if (index >= 0 && index < playerStocks.size()) {
+            return playerStocks.get(index);
+        }
+        return null;
+    }
+
+    public String getPlayerStocksForFile() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < stocks.size(); i++) {
+        for (int i = 0; i < playerStocks.size(); i++) {
             if (i > 0) {
                 sb.append("|");
             }
-            sb.append(stocks.get(i));
+            sb.append(playerStocks.get(i));
         }
         return sb.toString();
     }
 
-    public String getStocksString() {
+    public String getPlayerStocksForMenu() {
         StringBuilder sb = new StringBuilder();
-        for (PlayerStock stock : stocks) {
-            sb.append(stock.toString());
+        for (int i = 0; i < playerStocks.size(); i++) {
+            sb.append(i + 1);
+            sb.append(". ");
+            sb.append(playerStocks.get(i).toString());
             sb.append(System.lineSeparator());
         }
         return sb.toString();
-    }
-
-    public void setStockList(ArrayList<PlayerStock> stocks) {
-        this.stocks = stocks;
     }
 }

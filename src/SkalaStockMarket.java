@@ -67,13 +67,13 @@ public class SkalaStockMarket {
     // 플레이어의 보유 주식 목록 표시
     private void displayPlayerStocks() {
         System.out.println("\n=== 보유 주식 목록 ===");
-        System.out.println(player.getStocksString());
+        System.out.println(player.getPlayerStocksForMenu());
     }
 
     // 주식 목록 표시
     private void displayStockList() {
         System.out.println("\n=== 주식 목록 ===");
-        System.out.println(stockRepository.getStockListString());
+        System.out.println(stockRepository.getStockListForMenu());
     }
 
     // 주식 구매
@@ -92,10 +92,12 @@ public class SkalaStockMarket {
             int totalCost = selectedStock.getStockPrice() * quantity;
             int playerMoney = player.getPlayerMoney();
             if (totalCost <= playerMoney) {
-                playerMoney -= totalCost;
-                player.setPlayerMoney(playerMoney);
+                player.setPlayerMoney(playerMoney - totalCost);
                 player.addStock(new PlayerStock(selectedStock, quantity));
-                System.out.println(quantity + "주를 구매했습니다! 남은 금액: " + playerMoney);
+                System.out.println(quantity + "주를 구매했습니다! 남은 금액: " + player.getPlayerMoney());
+
+                // 변경된 내용을 파일로 저장
+                playerRepository.savePlayerList();
             } else {
                 System.out.println("금액이 부족합니다.");
             }
@@ -107,20 +109,34 @@ public class SkalaStockMarket {
     // 주식 판매
     private void sellStock(Scanner scanner) {
         System.out.println("\n판매할 주식 번호를 선택하세요:");
-        displayStockList();
-        int stockIndex = scanner.nextInt() - 1;
+        displayPlayerStocks();
 
-        // if (stockIndex >= 0 && stockIndex < stockList.size()) {
-        // Stock selectedStock = stockList.get(stockIndex);
-        // System.out.print("판매할 수량을 입력하세요: ");
-        // int quantity = scanner.nextInt();
+        System.out.print("선택: ");
+        int index = scanner.nextInt() - 1;
 
-        // int totalGain = selectedStock.getPrice() * quantity;
+        PlayerStock playerStock = player.finStock(index);
+        if (playerStock != null) {
+            System.out.print("판매할 수량을 입력하세요: ");
+            int quantity = scanner.nextInt();
 
-        // userGold += totalGain;
-        // System.out.println(quantity + "주를 판매했습니다! 현재 골드: " + userGold + "골드");
-        // } else {
-        // System.out.println("잘못된 선택입니다.");
-        // }
+            // 어얼리 리턴
+            if (quantity > playerStock.getStockQuantity()) {
+                System.out.println("수량이 부족합니다.");
+                return;
+            }
+
+            Stock baseStock = stockRepository.finStock(playerStock.getStockName());
+            int playerMoney = player.getPlayerMoney() + baseStock.getStockPrice() * quantity;
+            player.setPlayerMoney(playerMoney);
+
+            playerStock.setStockQuantity(playerStock.getStockQuantity() - quantity);
+            player.updatePlayerStock(playerStock);
+
+            // 변경된 내용을 파일로 저장
+            playerRepository.savePlayerList();
+
+        } else {
+            System.out.println("잘못된 선택입니다.");
+        }
     }
 }

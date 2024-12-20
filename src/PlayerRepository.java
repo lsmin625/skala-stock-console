@@ -32,7 +32,10 @@ class PlayerRepository {
     public void savePlayerList() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PLAYER_FILE))) {
             for (Player player : playerList) {
-                writer.write(player.getplayerId() + "," + player.getPlayerMoney() + "," + player.getStocksAsString());
+                writer.write(player.getplayerId() + "," + player.getPlayerMoney());
+                if (player.getPlayerStocks().size() > 0) {
+                    writer.write("," + player.getPlayerStocksForFile());
+                }
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -47,8 +50,9 @@ class PlayerRepository {
             Player player = new Player();
             player.setplayerId(fileds[0]);
             player.setPlayerMoney(Integer.parseInt(fileds[1]));
-            if (fileds[2] != null && fileds[2].indexOf(":") > 0) {
-                player.setStockList(parseFieldToStockList(fileds[2]));
+
+            if (fileds.length > 2 && fileds[2].indexOf(":") > 0) {
+                player.setPlayerStocks(parseFieldToStockList(fileds[2]));
             }
             return player;
         } else {

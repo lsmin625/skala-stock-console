@@ -55,7 +55,7 @@ class StockRepository {
         }
     }
 
-    public String getStockListString() {
+    public String getStockListForMenu() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < stockList.size(); i++) {
             sb.append(i + 1);
@@ -66,9 +66,20 @@ class StockRepository {
         return sb.toString();
     }
 
+    // 오버로딩
     public Stock finStock(int index) {
         if (index >= 0 && index < stockList.size()) {
             return stockList.get(index);
+        }
+        return null;
+    }
+
+    // 오버로딩
+    public Stock finStock(String name) {
+        for (Stock stock : stockList) {
+            if (stock.getStockName().equals(name)) {
+                return stock;
+            }
         }
         return null;
     }
