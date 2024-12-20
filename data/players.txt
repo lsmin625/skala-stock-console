@@ -1,1 +1,2 @@
 admin,600,TechCorp:100:5|GreenEnergy:80:5
+sangmin,9200,GreenEnergy:80:10
