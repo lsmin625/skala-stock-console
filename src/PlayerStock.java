@@ -1,12 +1,15 @@
+// 클래스 상속
 class PlayerStock extends Stock {
     private int stockQuantity;
 
+    // 상속을 고려한 constructor
     public PlayerStock(Stock stock, int quantity) {
         this.stockName = stock.getStockName();
         this.stockPrice = stock.getStockPrice();
         this.stockQuantity = quantity;
     }
 
+    // 파일에서 읽은 정보로 객체를 생성하기 위한 constructor
     public PlayerStock(String name, String price, String quantity) {
         this.stockName = name;
         this.stockPrice = Integer.parseInt(price);

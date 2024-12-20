@@ -1,1 +1,1 @@
-admin,1000,TechCorp:100:5
+admin,600,TechCorp:100:5|GreenEnergy:80:5

@@ -27,13 +27,12 @@ public class SkalaStockMarket {
             player.setPlayerMoney(money);
             playerRepository.addPlayer(player);
         }
-
-        System.out.println("\n환영합니다, " + playerId + "!");
-        boolean running = true;
+        displayPlayerStocks();
 
         // 프로그램 루프
+        boolean running = true;
         while (running) {
-            System.out.println("\n=== 스칼라 주식 시장 ===");
+            System.out.println("\n=== 스칼라 주식 프로그램 메뉴 ===");
             System.out.println(Menu.PLAYER_STOCKS.toString());
             System.out.println(Menu.BUY_STOCK.toString());
             System.out.println(Menu.SELL_STOCK.toString());
@@ -66,7 +65,10 @@ public class SkalaStockMarket {
 
     // 플레이어의 보유 주식 목록 표시
     private void displayPlayerStocks() {
-        System.out.println("\n=== 보유 주식 목록 ===");
+        System.out.println("\n========= 플레이어 정보 =========");
+        System.out.println("- 플레이어ID : " + player.getplayerId());
+        System.out.println("- 보유금액 : " + player.getPlayerMoney());
+        System.out.println("- 보유 주식 목록");
         System.out.println(player.getPlayerStocksForMenu());
     }
 
@@ -99,10 +101,10 @@ public class SkalaStockMarket {
                 // 변경된 내용을 파일로 저장
                 playerRepository.savePlayerList();
             } else {
-                System.out.println("금액이 부족합니다.");
+                System.out.println("ERROR: 금액이 부족합니다.");
             }
         } else {
-            System.out.println("잘못된 선택입니다.");
+            System.out.println("ERROR: 잘못된 선택입니다.");
         }
     }
 
@@ -121,7 +123,7 @@ public class SkalaStockMarket {
 
             // 어얼리 리턴
             if (quantity > playerStock.getStockQuantity()) {
-                System.out.println("수량이 부족합니다.");
+                System.out.println("ERROR: 수량이 부족합니다.");
                 return;
             }
 
@@ -136,7 +138,7 @@ public class SkalaStockMarket {
             playerRepository.savePlayerList();
 
         } else {
-            System.out.println("잘못된 선택입니다.");
+            System.out.println("ERROR: 잘못된 선택입니다.");
         }
     }
 }

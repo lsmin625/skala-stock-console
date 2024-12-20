@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 class StockRepository {
 
-    // 주식 정보를 저장할 파일
+    // 주식 정보를 저장할 파일 (형식 - "주식명,주가")
     private final String STOCK_FILE = "data/stocks.txt";
 
     // 주식 정보 목록 (메모리)
@@ -24,7 +24,7 @@ class StockRepository {
                 }
             }
         } catch (IOException e) {
-            System.out.println("파일을 불러오는 중 오류가 발생했습니다. 주식 정보를 초기화 합니다.");
+            System.out.println("파일이 없거나 파일을 불러오는 중 오류가 발생했습니다. 주식 정보를 초기화 합니다.");
             // 파일이 없으면 기본 데이터 추가
             stockList.add(new Stock("TechCorp", 100));
             stockList.add(new Stock("GreenEnergy", 80));
@@ -50,7 +50,7 @@ class StockRepository {
         if (fileds.length > 1) {
             return new Stock(fileds[0], Integer.parseInt(fileds[1]));
         } else {
-            System.out.println("라인을 분석할 수 없습니다. line=" + line);
+            System.out.println("파일 라인을 분석할 수 없습니다. line=" + line);
             return null;
         }
     }
