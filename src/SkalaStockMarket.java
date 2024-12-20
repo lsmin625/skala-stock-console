@@ -33,25 +33,25 @@ public class SkalaStockMarket {
         boolean running = true;
         while (running) {
             System.out.println("\n=== 스칼라 주식 프로그램 메뉴 ===");
-            System.out.println(Menu.PLAYER_STOCKS.toString());
-            System.out.println(Menu.BUY_STOCK.toString());
-            System.out.println(Menu.SELL_STOCK.toString());
-            System.out.println(Menu.EXIT.toString());
+            System.out.println("1. 보유 주식 목록");
+            System.out.println("2. 주식 구매");
+            System.out.println("3. 주식 판매");
+            System.out.println("0. 프로그램 종료");
 
             System.out.print("선택: ");
             int code = scanner.nextInt();
 
-            switch (Menu.fromCode(code)) {
-                case Menu.PLAYER_STOCKS:
+            switch (code) {
+                case 1:
                     displayPlayerStocks();
                     break;
-                case Menu.BUY_STOCK:
+                case 2:
                     buyStock(scanner);
                     break;
-                case Menu.SELL_STOCK:
+                case 3:
                     sellStock(scanner);
                     break;
-                case Menu.EXIT:
+                case 0:
                     System.out.println("프로그램을 종료합니다. 최종 자산: ");
                     running = false;
                     break;
