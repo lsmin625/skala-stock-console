@@ -35,7 +35,7 @@ class Player {
         for (PlayerStock existingStock : stocks) {
             if (existingStock.getStockName().equals(stock.getStockName())) {
                 existingStock.setStockPrice(stock.getStockPrice());
-                existingStock.setStockCount(existingStock.getStockCount());
+                existingStock.setStockQuantity(existingStock.getStockQuantity());
                 stockExists = true;
                 break;
             }

@@ -65,4 +65,12 @@ class StockRepository {
         }
         return sb.toString();
     }
+
+    public Stock finStock(int index) {
+        if (index >= 0 && index < stockList.size()) {
+            return stockList.get(index);
+        }
+        return null;
+    }
+
 }

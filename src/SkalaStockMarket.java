@@ -22,7 +22,7 @@ public class SkalaStockMarket {
         if (player == null) { // 새로운 플레이어
             player = new Player(playerId);
 
-            System.out.print("초기 투자금을 입력하세요 (스칼라): ");
+            System.out.print("초기 투자금을 입력하세요: ");
             int money = scanner.nextInt();
             player.setPlayerMoney(money);
             playerRepository.addPlayer(player);
@@ -31,32 +31,29 @@ public class SkalaStockMarket {
         System.out.println("\n환영합니다, " + playerId + "!");
         boolean running = true;
 
-        // 게임 루프
+        // 프로그램 루프
         while (running) {
             System.out.println("\n=== 스칼라 주식 시장 ===");
-            System.out.println("1. 보유 주식 목록");
-            System.out.println("2. 주식 구매");
-            System.out.println("3. 주식 판매");
-            System.out.println("4. 다음 날");
-            System.out.println("5. 프로그램 종료");
-            System.out.print("선택: ");
-            int choice = scanner.nextInt();
+            System.out.println(Menu.PLAYER_STOCKS.toString());
+            System.out.println(Menu.BUY_STOCK.toString());
+            System.out.println(Menu.SELL_STOCK.toString());
+            System.out.println(Menu.EXIT.toString());
 
-            switch (choice) {
-                case 1:
+            System.out.print("선택: ");
+            int code = scanner.nextInt();
+
+            switch (Menu.fromCode(code)) {
+                case Menu.PLAYER_STOCKS:
                     displayPlayerStocks();
                     break;
-                case 2:
+                case Menu.BUY_STOCK:
                     buyStock(scanner);
                     break;
-                case 3:
+                case Menu.SELL_STOCK:
                     sellStock(scanner);
                     break;
-                case 4:
-                    simulateNextDay();
-                    break;
-                case 5:
-                    System.out.println("게임을 종료합니다. 최종 자산: ");
+                case Menu.EXIT:
+                    System.out.println("프로그램을 종료합니다. 최종 자산: ");
                     running = false;
                     break;
                 default:
@@ -67,7 +64,7 @@ public class SkalaStockMarket {
         scanner.close();
     }
 
-    // 주식 목록 표시
+    // 플레이어의 보유 주식 목록 표시
     private void displayPlayerStocks() {
         System.out.println("\n=== 보유 주식 목록 ===");
         System.out.println(player.getStocksString());
@@ -83,31 +80,35 @@ public class SkalaStockMarket {
     private void buyStock(Scanner scanner) {
         System.out.println("\n구매할 주식 번호를 선택하세요:");
         displayStockList();
-        // int stockIndex = scanner.nextInt() - 1;
 
-        // if (stockIndex >= 0 && stockIndex < stockList.size()) {
-        // Stock selectedStock = stockList.get(stockIndex);
-        // System.out.print("구매할 수량을 입력하세요: ");
-        // int quantity = scanner.nextInt();
+        System.out.print("선택: ");
+        int index = scanner.nextInt() - 1;
 
-        // int totalCost = selectedStock.getPrice() * quantity;
+        Stock selectedStock = stockRepository.finStock(index);
+        if (selectedStock != null) {
+            System.out.print("구매할 수량을 입력하세요: ");
+            int quantity = scanner.nextInt();
 
-        // if (totalCost <= userGold) {
-        // userGold -= totalCost;
-        // System.out.println(quantity + "주를 구매했습니다! 남은 골드: " + userGold + "골드");
-        // } else {
-        // System.out.println("골드가 부족합니다.");
-        // }
-        // } else {
-        // System.out.println("잘못된 선택입니다.");
-        // }
+            int totalCost = selectedStock.getStockPrice() * quantity;
+            int playerMoney = player.getPlayerMoney();
+            if (totalCost <= playerMoney) {
+                playerMoney -= totalCost;
+                player.setPlayerMoney(playerMoney);
+                player.addStock(new PlayerStock(selectedStock, quantity));
+                System.out.println(quantity + "주를 구매했습니다! 남은 금액: " + playerMoney);
+            } else {
+                System.out.println("금액이 부족합니다.");
+            }
+        } else {
+            System.out.println("잘못된 선택입니다.");
+        }
     }
 
     // 주식 판매
     private void sellStock(Scanner scanner) {
         System.out.println("\n판매할 주식 번호를 선택하세요:");
-        // displayStockList();
-        // int stockIndex = scanner.nextInt() - 1;
+        displayStockList();
+        int stockIndex = scanner.nextInt() - 1;
 
         // if (stockIndex >= 0 && stockIndex < stockList.size()) {
         // Stock selectedStock = stockList.get(stockIndex);
@@ -122,20 +123,4 @@ public class SkalaStockMarket {
         // System.out.println("잘못된 선택입니다.");
         // }
     }
-
-    // 다음 날 시뮬레이션
-    private void simulateNextDay() {
-        System.out.println("\n다음 날이 시작되었습니다!");
-        // for (Stock stock : stockList) {
-        // int priceChange = (int) (Math.random() * 21) - 10; // -10에서 +10 사이의 변화
-        // stock.setPrice(stock.getPrice() + priceChange);
-
-        // if (stock.getPrice() < 0) {
-        // stock.setPrice(0); // 주식 가격은 0 이하로 내려가지 않음
-        // }
-        // }
-        System.out.println("주식 가격이 업데이트되었습니다.");
-        displayStockList();
-    }
-
 }

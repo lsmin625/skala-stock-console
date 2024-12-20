@@ -27,7 +27,6 @@ class Stock {
         sb.append(stockName);
         sb.append(":");
         sb.append(stockPrice);
-        sb.append(Constant.MONEY_UNIT);
         return sb.toString();
     }
 }
