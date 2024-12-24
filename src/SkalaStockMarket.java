@@ -52,7 +52,7 @@ public class SkalaStockMarket {
                     sellStock(scanner);
                     break;
                 case 0:
-                    System.out.println("프로그램을 종료합니다. 최종 자산: ");
+                    System.out.println("프로그램을 종료합니다...Bye");
                     running = false;
                     break;
                 default:
@@ -65,7 +65,7 @@ public class SkalaStockMarket {
 
     // 플레이어의 보유 주식 목록 표시
     private void displayPlayerStocks() {
-        System.out.println("\n========= 플레이어 정보 =========");
+        System.out.println("\n######### 플레이어 정보 #########");
         System.out.println("- 플레이어ID : " + player.getplayerId());
         System.out.println("- 보유금액 : " + player.getPlayerMoney());
         System.out.println("- 보유 주식 목록");

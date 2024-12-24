@@ -59,6 +59,9 @@ class Player {
             if (existingStock.getStockName().equals(stock.getStockName())) {
                 existingStock.setStockPrice(stock.getStockPrice());
                 existingStock.setStockQuantity(existingStock.getStockQuantity());
+                if (existingStock.getStockQuantity() == 0) {
+                    playerStocks.remove(existingStock);
+                }
                 break;
             }
         }
