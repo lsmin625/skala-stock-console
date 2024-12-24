@@ -43,7 +43,7 @@ class Player {
         for (PlayerStock existingStock : playerStocks) {
             if (existingStock.getStockName().equals(stock.getStockName())) {
                 existingStock.setStockPrice(stock.getStockPrice());
-                existingStock.setStockQuantity(existingStock.getStockQuantity());
+                existingStock.setStockQuantity(existingStock.getStockQuantity() + stock.getStockQuantity());
                 stockExists = true;
                 break;
             }
@@ -64,7 +64,7 @@ class Player {
         }
     }
 
-    public PlayerStock finStock(int index) {
+    public PlayerStock findStock(int index) {
         if (index >= 0 && index < playerStocks.size()) {
             return playerStocks.get(index);
         }

@@ -67,7 +67,7 @@ class StockRepository {
     }
 
     // 오버로딩
-    public Stock finStock(int index) {
+    public Stock findStock(int index) {
         if (index >= 0 && index < stockList.size()) {
             return stockList.get(index);
         }
@@ -75,7 +75,7 @@ class StockRepository {
     }
 
     // 오버로딩
-    public Stock finStock(String name) {
+    public Stock findStock(String name) {
         for (Stock stock : stockList) {
             if (stock.getStockName().equals(name)) {
                 return stock;

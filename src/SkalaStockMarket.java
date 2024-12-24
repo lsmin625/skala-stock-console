@@ -86,7 +86,7 @@ public class SkalaStockMarket {
         System.out.print("선택: ");
         int index = scanner.nextInt() - 1;
 
-        Stock selectedStock = stockRepository.finStock(index);
+        Stock selectedStock = stockRepository.findStock(index);
         if (selectedStock != null) {
             System.out.print("구매할 수량을 입력하세요: ");
             int quantity = scanner.nextInt();
@@ -116,7 +116,7 @@ public class SkalaStockMarket {
         System.out.print("선택: ");
         int index = scanner.nextInt() - 1;
 
-        PlayerStock playerStock = player.finStock(index);
+        PlayerStock playerStock = player.findStock(index);
         if (playerStock != null) {
             System.out.print("판매할 수량을 입력하세요: ");
             int quantity = scanner.nextInt();
@@ -127,7 +127,7 @@ public class SkalaStockMarket {
                 return;
             }
 
-            Stock baseStock = stockRepository.finStock(playerStock.getStockName());
+            Stock baseStock = stockRepository.findStock(playerStock.getStockName());
             int playerMoney = player.getPlayerMoney() + baseStock.getStockPrice() * quantity;
             player.setPlayerMoney(playerMoney);
 
