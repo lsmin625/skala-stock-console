@@ -2,10 +2,3 @@ bin/
 
 ### VS Code ###
 .vscode/
-bin/App.class
-bin/Player.class
-bin/PlayerRepository.class
-bin/PlayerStock.class
-bin/SkalaStockMarket.class
-bin/Stock.class
-bin/StockRepository.class
