@@ -1,32 +1,41 @@
-class Stock {
-    String stockName;
-    int stockPrice;
+/**
+ * 주식의 이름, 가격, 수량을 저장하는 데이터 클래스입니다.
+ */
+public class Stock {
+    private String name;
+    private int price;
+    private int quantity;
 
-    public Stock() {
+    public Stock(String name, int price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
     }
 
-    public Stock(String name, int price) {
-        this.stockName = name;
-        this.stockPrice = price;
+    // Getters
+    public String getName() {
+        return name;
     }
 
-    public String getStockName() {
-        return stockName;
+    public int getPrice() {
+        return price;
     }
 
-    public int getStockPrice() {
-        return stockPrice;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStockPrice(int price) {
-        this.stockPrice = price;
+    // Setters
+    public void setPrice(int price) {
+        this.price = price;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(stockName);
-        sb.append(":");
-        sb.append(stockPrice);
-        return sb.toString();
+        return "종목: " + name + ", 현재가: " + price + ", 보유수량: " + quantity;
     }
 }

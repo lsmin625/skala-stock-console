@@ -1,98 +1,36 @@
-import java.util.ArrayList;
+/**
+ * 플레이어의 기본 정보(ID, 자금)와 포트폴리오를 관리합니다.
+ */
+public class Player {
+    private String id;
+    private int money;
+    private final Portfolio portfolio;
 
-class Player {
-    private String playerId;
-    private int playerMoney;
-    private ArrayList<PlayerStock> playerStocks = new ArrayList<>();
-
-    public Player() {
+    public Player(String id, int initialMoney) {
+        this.id = id;
+        this.money = initialMoney;
+        this.portfolio = new Portfolio();
     }
 
-    public Player(String id) {
-        this.playerId = id;
-        this.playerMoney = 10000;
+    // Getters
+    public String getId() {
+        return id;
     }
 
-    public void setplayerId(String id) {
-        this.playerId = id;
+    public int getMoney() {
+        return money;
     }
 
-    public String getplayerId() {
-        return this.playerId;
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 
-    public int getPlayerMoney() {
-        return this.playerMoney;
+    // Setters
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setPlayerMoney(int money) {
-        this.playerMoney = money;
-    }
-
-    public ArrayList<PlayerStock> getPlayerStocks() {
-        return this.playerStocks;
-    }
-
-    public void setPlayerStocks(ArrayList<PlayerStock> stocks) {
-        this.playerStocks = stocks;
-    }
-
-    public void addStock(PlayerStock stock) {
-        boolean stockExists = false;
-
-        for (PlayerStock existingStock : playerStocks) {
-            if (existingStock.getStockName().equals(stock.getStockName())) {
-                existingStock.setStockPrice(stock.getStockPrice());
-                existingStock.setStockQuantity(existingStock.getStockQuantity() + stock.getStockQuantity());
-                stockExists = true;
-                break;
-            }
-        }
-
-        if (!stockExists) {
-            playerStocks.add(stock);
-        }
-    }
-
-    public void updatePlayerStock(PlayerStock stock) {
-        for (PlayerStock existingStock : playerStocks) {
-            if (existingStock.getStockName().equals(stock.getStockName())) {
-                existingStock.setStockPrice(stock.getStockPrice());
-                existingStock.setStockQuantity(existingStock.getStockQuantity());
-                if (existingStock.getStockQuantity() == 0) {
-                    playerStocks.remove(existingStock);
-                }
-                break;
-            }
-        }
-    }
-
-    public PlayerStock findStock(int index) {
-        if (index >= 0 && index < playerStocks.size()) {
-            return playerStocks.get(index);
-        }
-        return null;
-    }
-
-    public String getPlayerStocksForFile() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < playerStocks.size(); i++) {
-            if (i > 0) {
-                sb.append("|");
-            }
-            sb.append(playerStocks.get(i));
-        }
-        return sb.toString();
-    }
-
-    public String getPlayerStocksForMenu() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < playerStocks.size(); i++) {
-            sb.append(i + 1);
-            sb.append(". ");
-            sb.append(playerStocks.get(i).toString());
-            sb.append(System.lineSeparator());
-        }
-        return sb.toString();
+    public void setMoney(int money) {
+        this.money = money;
     }
 }
