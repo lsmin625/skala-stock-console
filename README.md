@@ -1,8 +1,8 @@
 # SKALA STOCK Console
 
-### .vscode/settings.json
+### 자동 저장 기능 설정
 
-자동 저장 기능 설정
+.vscode/settings.json
 
 ```json
 {
