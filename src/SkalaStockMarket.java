@@ -1,3 +1,4 @@
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class SkalaStockMarket {
@@ -14,9 +15,10 @@ public class SkalaStockMarket {
         playerRepository.loadPlayerList();
 
         // 콘솔로 입력을 받을 수 있도록 스캐너 설정
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
-        System.out.print("플레이어 ID를 입력하세요: ");
+        System.out.print("\n플레이어 ID를 입력하세요: ");
         String playerId = scanner.nextLine();
         player = playerRepository.findPlayer(playerId);
         if (player == null) { // 새로운 플레이어
