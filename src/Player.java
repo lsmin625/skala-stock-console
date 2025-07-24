@@ -13,24 +13,5 @@ public class Player {
     }
 
     // Getters
-    public String getId() {
-        return id;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
-
     // Setters
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
 }

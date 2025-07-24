@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +10,7 @@ public class StockRepository {
     private final StockMapper mapper = new StockMapper();
 
     public void loadStockList() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(STOCK_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Stock stock = mapper.fromLine(line);
-                if (stock != null) {
-                    stockList.add(stock);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("주식 정보 파일이 없어 기본 데이터를 생성합니다.");
-            initializeDefaultStocks();
-        }
+
     }
 
     private void initializeDefaultStocks() {
@@ -39,16 +25,10 @@ public class StockRepository {
     }
 
     public Stock findStock(int index) {
-        if (index >= 0 && index < stockList.size()) {
-            return stockList.get(index);
-        }
-        return null;
+
     }
 
     public Stock findStock(String name) {
-        return stockList.stream()
-                .filter(stock -> stock.getName().equals(name))
-                .findFirst()
-                .orElse(null);
+
     }
 }
